@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   devise_for :users
   root 'home#top'
 
-  resources :posts, only: [:new, :create, :show, :index] # 追加
+  resources :posts, only: [ :index, :new, :create, :show, :destroy] # 修正
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
