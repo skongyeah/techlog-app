@@ -48,19 +48,48 @@ RSpec.describe 'Posts', type: :request do
       end
     end
   end
-  describe 'GET /posts' do
+  describe 'GET /' do # 修正
     context 'ログインしていない場合' do
       it 'HTTPステータス200を返す' do
-        get '/posts'
+        get '/' # 修正
         expect(response).to have_http_status '200'
       end
     end
     context 'ログインしている場合' do
       it 'HTTPステータス200を返す' do
         sign_in @user
-        get '/posts'
+        get '/' # 修正
         expect(response).to have_http_status '200'
       end
     end
   end
+  # describe 'ナビゲーションバーの検証' do
+  #   context 'ログインしていない場合' do
+  #     before { visit '/' }
+
+  #     it 'ログ一覧リンクを表示する' do
+  #       expect(page).to have_link('ログ一覧', href: '/posts')
+  #     end
+
+  #     it 'ログ投稿リンクを表示しない' do
+  #       expect(page).not_to have_link('ログ投稿', href: '/posts/new')
+  #     end
+  #   end
+
+  #   context 'ログインしている場合' do
+  #     before do
+  #       user = create(:user) # ログイン用のユーザーを作成
+  #       sign_in user # 作成したユーザーでログイン
+  #       visit '/'
+  #     end
+
+  #     it 'ログ一覧リンクを表示する' do
+  #       expect(page).to have_link('ログ一覧', href: '/posts')
+  #     end
+
+  #     it 'ログ投稿リンクを表示する' do
+  #       expect(page).to have_link('ログ投稿', href: '/posts/new')
+  #     end
+  #   end
+  # end
 end
