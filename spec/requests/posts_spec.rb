@@ -48,6 +48,16 @@ RSpec.describe 'Posts', type: :request do
       end
     end
   end
+
+  describe 'GET /posts/:id/edit' do
+    context '修正している場合' do
+      it 'HTTPステータス200を返す' do
+        get "/posts/#{@post.id}/edit"
+        expect(response).to have_http_status '200'
+      end
+    end
+  end
+
   describe 'GET /' do # 修正
     context 'ログインしていない場合' do
       it 'HTTPステータス200を返す' do

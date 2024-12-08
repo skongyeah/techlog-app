@@ -34,6 +34,21 @@ class PostsController < ApplicationController
     redirect_to root_path # 修正
   end
 
+  def edit
+    @post = Post.find_by(id: params[:id])
+  end
+
+  def update
+    @post = Post.find_by(params[:id])
+    if @post.update(post_params)
+      flash[:notice] = '投稿しました'
+      redirect_to root_path
+    else
+      flash[:alert] = '投稿に失敗しました'
+      render :new
+    end
+end
+
   private
 
   def post_params
