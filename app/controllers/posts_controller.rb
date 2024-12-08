@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, except: [:show, :index] # 修正
+  before_action :authenticate_user!, except: [:show, :index]
 
   def new
     @post = Post.new
@@ -7,22 +7,26 @@ class PostsController < ApplicationController
 
   def create
     @post = Post.new(post_params)
-    @post.user_id = current_user.id # ログインユーザのIDを代入
+    @post.user_id = current_user.id
     if @post.save
       flash[:notice] = '投稿しました'
-      redirect_to root_path # 修正
+      redirect_to root_path
     else
       flash[:alert] = '投稿に失敗しました'
       render :new
     end
   end
 
-  def show # 追加
+  def show
     @post = Post.find_by(id: params[:id])
   end
 
-  def index # 追加
+  def index
+    query = params[:query]
+    category = params[:category]
     @posts = Post.limit(10).order(created_at: :desc)
+    @posts = @posts.where("title LIKE ?", "%#{query}%") if query.present?
+    @posts = @posts.where(category: category) if category.present?
   end
 
   def destroy
@@ -31,7 +35,7 @@ class PostsController < ApplicationController
       @post.destroy
       flash[:notice] = '投稿が削除されました'
     end
-    redirect_to root_path # 修正
+    redirect_to root_path
   end
 
   def edit
@@ -39,7 +43,7 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find_by(params[:id])
+    @post = Post.find_by(id: params[:id])
     if @post.update(post_params)
       flash[:notice] = '投稿しました'
       redirect_to root_path
@@ -47,7 +51,7 @@ class PostsController < ApplicationController
       flash[:alert] = '投稿に失敗しました'
       render :new
     end
-end
+  end
 
   private
 

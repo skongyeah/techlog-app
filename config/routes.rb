@@ -3,13 +3,13 @@ Rails.application.routes.draw do
   devise_for :users
   
   # Root route
-  root 'posts#index' # 修正
+  root 'posts#index'
 
   # Posts resources
-  resources :posts, only: [:new, :create, :show, :destroy, :edit, :update] # 修正
+  resources :posts, only: [:new, :create, :show, :destroy, :edit, :update, :index]
 
   # API namespace
   namespace :api do
-    resources :items, only: [:index]
+    resources :posts, only: [:index]
   end
 end

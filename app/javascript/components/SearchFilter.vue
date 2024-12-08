@@ -4,41 +4,55 @@
       type="text"
       v-model="searchQuery"
       placeholder="検索語を入力してください。"
-      @input="fetchResults"
     />
-    <p>
-        배불러.... 돼지 같이 머금
-    </p>
-    <select v-model="filter" @change="fetchResults">
-      <option value="">전체</option>
-      <option value="category1">카테고리 1</option>
-      <option value="category2">카테고리 2</option>
-    </select>
-    <ul>
-      <li v-for="item in results" :key="item.id">{{ item.name }}</li>
+    
+    <input
+      type="button"
+      value="検索"
+      @click="fetchResults"
+      class="search-button"
+    />
+
+    <ul v-if="results.length">
+      <li v-for="result in results" :key="result.id">{{ result.title }}</li>
     </ul>
+    <p v-else>検索結果がありません。</p>
   </div>
 </template>
 
 <script>
+import axios from 'axios'; 
+import qs from 'qs';
+
 export default {
-    mounted(){
-        console.log('success!')
-    },
-    data() {
+  data() {
     return {
       searchQuery: '',
-      filter: '',
-      results: [],
+      filter: '', 
+      results: [], 
     };
   },
   methods: {
     async fetchResults() {
-      const response = await fetch(
-        `/api/items?query=${this.searchQuery}&filter=${this.filter}`
-      );
-      this.results = await response.json();
-    },
+  try {
+    const response = await axios.get('/api/posts', {
+      params: {
+        query: this.searchQuery,
+        filter: this.filter,
+      },
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      paramsSerializer: (params) => {
+        return qs.stringify(params, { indices: false });
+      },
+    });
+
+    console.log(response.data.posts); 
+  } catch (error) {
+    console.error(error); 
+  }
+}
   },
 };
 </script>
@@ -47,5 +61,23 @@ export default {
 input, select {
   margin-right: 10px;
 }
-</style>
 
+.search-button {
+  display: inline-flex;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05), 0 1px 3px rgba(0, 0, 0, 0.1);
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.375rem;
+  color: white;
+  background-color: #4f46e5;
+  cursor: pointer;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.search-button:hover {
+  background-color: #4338ca; 
+}
+</style>

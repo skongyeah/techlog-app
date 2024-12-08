@@ -1,17 +1,20 @@
 <%= javascript_pack_tag 'application' %>
+
 <div class="space-y-6 w-3/4 max-w-lg">
   <label class="block text-xl font-bold text-gray-700">学習ログ一覧</label>
-  <div id="app">
-  </div>
 
-  <script>
-    import App from '../../javascript/components/SearchFilter.vue'
-
-    new Vue({
-      el: '#app',
-      components: {App}
-    })
-  </script>
+  <form action="<%= posts_path %>" method="get">
+    <input
+      type="text"
+      name="category"
+      value="<%= params[:category] %>"
+      placeholder="カテゴリーで絞り込み"
+      class="border border-gray-300 rounded-md p-2"
+    />
+    <button type="submit" class="search-button">
+      検索
+    </button>
+  </form>
 
   <div class="items-center justify-center">
     <% @posts.each do |post| %>
