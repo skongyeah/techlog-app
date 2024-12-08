@@ -1,11 +1,15 @@
 Rails.application.routes.draw do
-  # get 'posts/new'
+  # Devise routes
   devise_for :users
+  
+  # Root route
   root 'posts#index' # 修正
 
+  # Posts resources
   resources :posts, only: [:new, :create, :show, :destroy, :edit, :update] # 修正
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
-  # Defines the root path route ("/")
-  # root "articles#index"
+  # API namespace
+  namespace :api do
+    resources :items, only: [:index]
+  end
 end

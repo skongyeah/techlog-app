@@ -9,7 +9,16 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+ 
+  <style>
+  @media (max-width: 480px){
+    .content .btn {
+      font-size: 1.2rem;
+    }
+  }
+  </style>
   </head>
+
 
   <body class="h-screen bg-blue-50">
     <%= render 'shared/flash' %>

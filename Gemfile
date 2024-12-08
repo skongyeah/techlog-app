@@ -81,3 +81,7 @@ group :test do
   gem 'capybara'
   gem 'selenium-webdriver'
 end
+
+gem "webpacker", "~> 5.4"
+
+gem "jsbundling-rails", "~> 1.3"
