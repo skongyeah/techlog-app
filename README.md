@@ -5,12 +5,12 @@
 - vue: 3.5.13
 
 # セットアップ
-## 必要な依存性の設置
-1. yarn Dependencies 設置
+## 必要なプログラムのインストール
+1. yarn Dependencies インストール
 ```bash
 yarn install
 ```
-2. ruby Gems 設置
+2. ruby Gems インストール
 ```
 bundle install
 ```
