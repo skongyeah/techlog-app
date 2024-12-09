@@ -1,11 +1,9 @@
 const { environment } = require('@rails/webpacker');
-const { VueLoaderPlugin } = require('vue-loader');
+const { VueLoaderPlugin } = require('vue-loader'); 
+const vue = require('./loaders/vue');
 
-environment.plugins.append('VueLoaderPlugin', new VueLoaderPlugin());
+environment.plugins.prepend('VueLoaderPlugin', new VueLoaderPlugin());
 
-environment.loaders.append('vue', {
-  test: /\.vue$/,
-  use: 'vue-loader'
-});
+environment.loaders.prepend('vue', vue);
 
 module.exports = environment;
