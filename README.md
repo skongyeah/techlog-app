@@ -5,7 +5,7 @@
 - vue: 3.5.13
 
 # セットアップ
-## 必要な依存性のインストール
+## 必要なプログラムのインストール
 1. yarn Dependencies インストール
 ```bash
 yarn install
